@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../dbconnection');
 
-var db = require('../dbconnection');
-
-var movies = {
+let movies = {
 
   /**
    * 
@@ -14,11 +13,12 @@ var movies = {
    */
 
   getAllMovies: (callback) => {
-    return db.query("SELECT a.*, GROUP_CONCAT(c.name) AS `Actors` \
+    let query = "SELECT a.*, GROUP_CONCAT(c.name) AS `Actors` \
     FROM movies a \
       LEFT JOIN movie_actor b ON b.movie_id = a.imdbID \
       LEFT JOIN actors c ON b.actor_id = c.id \
-    GROUP BY a.imdbID", callback);
+    GROUP BY a.imdbID"
+    return db.query(query, callback);
   },
 
   /**
@@ -35,44 +35,47 @@ var movies = {
     if (id == parseInt(id)) {
       id = ('%' + id + '%')
       //changes the query so it's capable of "like" clause
-      return db.query("SELECT a.*, GROUP_CONCAT(c.name) AS `Actors` \
+      let query = "SELECT a.*, GROUP_CONCAT(c.name) AS `Actors` \
       FROM movies a \
         LEFT JOIN movie_actor b ON b.movie_id = a.imdbID \
         LEFT JOIN actors c ON b.actor_id = c.id \
       WHERE a.year like ?\
-      GROUP BY a.imdbID",[id],callback)
+      GROUP BY a.imdbID"
+      return db.query(query, [id], callback)
     } else {
       id = ('%' + id + '%')
     //else return just 1 word queries
-
-      return db.query("SELECT a.*, GROUP_CONCAT(c.name) AS `Actors` \
+      query = "SELECT a.*, GROUP_CONCAT(c.name) AS `Actors` \
       FROM movies a \
         LEFT JOIN movie_actor b ON b.movie_id = a.imdbID \
         LEFT JOIN actors c ON b.actor_id = c.id \
         WHERE UPPER(title) LIKE UPPER(?) \
-        GROUP BY a.imdbID",[id],callback)
+        GROUP BY a.imdbID"
+      return db.query(query, [id], callback)
     }
     
   },
 
   getMoviebyRating: (id, callback) => {
     // id = ('%' + id + '%')
-      return db.query("SELECT a.*, GROUP_CONCAT(c.name) AS `Actors` \
-      FROM movies a \
-        LEFT JOIN movie_actor b ON b.movie_id = a.imdbID \
-        LEFT JOIN actors c ON b.actor_id = c.id \
-      WHERE rating >= (? * .9) and rating <= (? * 1.08)\
-      GROUP BY a.imdbID\
-      ORDER BY abs(? - 7.4) ",[id,id,id],callback)
+    query = "SELECT a.*, GROUP_CONCAT(c.name) AS `Actors` \
+    FROM movies a \
+      LEFT JOIN movie_actor b ON b.movie_id = a.imdbID \
+      LEFT JOIN actors c ON b.actor_id = c.id \
+    WHERE rating >= (? * .9) and rating <= (? * 1.08)\
+    GROUP BY a.imdbID\
+    ORDER BY abs(? - 7.4) "
+      return db.query(query, [id, id, id], callback)
   },
 
   getMoviebyActors: (id, callback) => {
     id = ('%' + id + '%')
-      return db.query("SELECT a.name, m.title, m.year, m.rating, m.plot \
+    "SELECT a.name, m.title, m.year, m.rating, m.plot \
       FROM finalimdb.actors a\
       JOIN movie_actor ma ON (ma.actor_id = a.id)\
       JOIN movies m ON (m.imdbID = ma.movie_id)\
-      WHERE UPPER(a.name) LIKE UPPER(?)",[id],callback)
+      WHERE UPPER(a.name) LIKE UPPER(?)"
+      return db.query(query, [id], callback)
 
       // SELECT * FROM tab ORDER BY abs(val - $val) LIMIT 1
 
@@ -92,7 +95,7 @@ var movies = {
    */
   attachActor: (req, callback) => {
     let movies = req;
-    var query = "Insert into movie_actor (movie_id, actor_id) values(?, ?);";
+    let query = "Insert into movie_actor (movie_id, actor_id) values(?, ?);";
     return db.query(query,[movies.imdbID, movies.id], callback)
   },
 
@@ -113,13 +116,13 @@ var movies = {
   * (@callback = query response)
   * 
   */
-  addMovies: function (req, callback) {
+  addMovies: (req, callback) => {
     console.log(req)
     //accepts the req object.
     let movies = req;
-    var query = "INSERT INTO movies(title, year, released, runtime, director, plot, rating)\
+    let query = "INSERT INTO movies(title, year, released, runtime, director, plot, rating)\
     VALUES (?, ?, ?, ?, ?, ?, ?);";
-    return db.query(query,[movies.title, movies.year, movies.released, movies.runtime ,movies.director, movies.plot, movies.rating] ,console.log(callback))
+    return db.query(query,[movies.title, movies.year, movies.released, movies.runtime ,movies.director, movies.plot, movies.rating] ,callback)
   },
 
   /*requires you to know an id of the IMDB. In a web application, the ID would be well known. But to pass in the ID,
@@ -140,7 +143,7 @@ var movies = {
   updateMovies: (req, callback) => {
     //accepts the req object.
     let movies = req;
-    var query = "	UPDATE finalimdb.movies SET title = ?, year = ?, \
+    let query = "	UPDATE finalimdb.movies SET title = ?, year = ?, \
     released = ?, runtime = ?, director = ?, \
     plot = ?, rating = ?\
     WHERE movies.imdbID = ?;";
@@ -149,8 +152,8 @@ var movies = {
 
 
   //Simple function to delete movies based on ID
-  deleteMovies: function(id, callback) {
-    return db.query ("DELETE FROM MOVIES WHERE imdbID =?", [id],callback)
+  deleteMovies: (id, callback) => {
+    return db.query ("DELETE FROM MOVIES WHERE imdbID =?", [id], callback)
   }
 };
 
@@ -159,4 +162,4 @@ var movies = {
 
 
 
-module.exports = movies
+module.exports = movies;

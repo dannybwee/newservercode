@@ -1,6 +1,6 @@
-var express = require('express');
- var router = express.Router();
- var actorsInfo = require('../controllers/actorsInfo');
+const express = require('express');
+const router = express.Router();
+const actorsInfo = require('../controllers/actorsInfo');
  
  /**
   * 
@@ -21,7 +21,7 @@ var express = require('express');
     } else {  
     
       //gets all actors if no params are passed
-      actorsInfo.getAllActors((err,rows) => {
+      actorsInfo.getAllActors((err, rows) => {
         if (err) {
           res.json(err);
         } else {
@@ -33,9 +33,9 @@ var express = require('express');
 
 //adds actor to the actor table
 //Takes the parameter of a json object. Explained in actorsInfo.js
-router.post('/addActor',(req, res) => { 
+router.post('/addActor', (req, res) => { 
     console.log(req.body)
-    actorsInfo.addActor(req.body, (err,rows) => {
+    actorsInfo.addActor(req.body, (err, rows) => {
       if (err) {
         res.json(err);
       } else {
@@ -45,14 +45,14 @@ router.post('/addActor',(req, res) => {
   }),
 
 //delete actor based on ID
-router.delete('/:id?',(req, res, next) => { 
-actorsInfo.deleteActors(req.params.id,(err,rows) => {
+router.delete('/:id?', (req, res, next) => { 
+  actorsInfo.deleteActors(req.params.id, (err, rows) => {
     if (err) {
       res.json(err);
     } else {
       res.json(rows);
     }
-});
+  });
 });
 
 module.exports = router;

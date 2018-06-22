@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-var db = require('../dbconnection');
+let db = require('../dbconnection');
 
-var actors = {
+let actors = {
   
    /**
    * 
@@ -12,7 +12,8 @@ var actors = {
    */
   
   getAllActors: (callback) => {
-    return db.query("SELECT * FROM actors", callback);
+    let query = "SELECT * FROM actors"
+    return db.query(query, callback);
   },
 
   //this function gets actors based on ID. Also checks for partial names
@@ -20,13 +21,15 @@ var actors = {
   getActorsbyID: (id, callback) => {
     //parses the int to check if the id is just a number
     if (id == parseInt(id)) {
-      return db.query("SELECT * FROM actors WHERE id = ?",[id],callback)
+      let query = "SELECT * FROM actors WHERE id = ?"
+      return db.query(query, [id], callback)
     } else {
 
     //This allows for "like" clause to work
     id = ('%' + id + '%')
-    //Checks to see if the passed parameter has a space in the name. Partials. Harry Har, Potte
-      return db.query("SELECT * FROM actors WHERE UPPER(name) LIKE UPPER(?)",[id],callback)
+      let query = "SELECT * FROM actors WHERE UPPER(name) LIKE UPPER(?)"
+      //Checks to see if the passed parameter has a space in the name. Partials. Harry Har, Potte
+      return db.query(query, [id], callback)
     }
   },
 
@@ -36,15 +39,16 @@ var actors = {
   //still requires a json object
   addActor: (req, callback) => {
     let actor = req;
-    var query = "	INSERT INTO actors(name) VALUES (?);";
-    return db.query(query,[actor.name], callback)
+    let query = "	INSERT INTO actors(name) VALUES (?);";
+    return db.query(query, [actor.name], callback)
   },
   
   //Deletes actor based on ID
   deleteActors: (id, callback) => {
-    return db.query ("DELETE FROM actors WHERE ID =?", [id],callback)
+    let query = "DELETE FROM actors WHERE ID =?"
+    return db.query (query, [id], callback)
   }
   
 }
 
-module.exports = actors
+module.exports = actors;

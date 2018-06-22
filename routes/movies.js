@@ -9,9 +9,9 @@ const moviesInfo = require('../controllers/moviesInfo');
  */
 
  //Gets based on id. ID parameter is passed through and read.
-router.get('/:id?',(req, res, next)=>{
+router.get('/:id?',(req, res, next) => {
   if(req.params.id){
-    moviesInfo.getMoviebyYear(req.params.id, (err, rows)=>{
+    moviesInfo.getMoviebyYear(req.params.id, (err, rows) => {
       if (err) {
         res.json(err);
       } else {
@@ -22,7 +22,7 @@ router.get('/:id?',(req, res, next)=>{
   } else { 
 
     //No parameter is gotten so it just goes straight to route
-    moviesInfo.getAllMovies((err, rows) =>{
+    moviesInfo.getAllMovies((err, rows) => {
       if (err) {
         res.json(err);
       } else {
@@ -70,7 +70,7 @@ router.post('/addMovies',(req, res) => {
 //requires you to go to localhost:4000/movies/addActor
 //This attaches an actor to the movie
 //Takes the parameter of a json object. Explained in moviesinfo.js
-router.post('/addActor',(req, res)=>{ 
+router.post('/addActor',(req, res) => { 
   moviesInfo.attachActor(req.body, (err, rows) => {
     if (err) {
       res.json(err);
@@ -84,7 +84,7 @@ router.post('/addActor',(req, res)=>{
 //requires you to go to localhost:4000/movies/UpdateMovies
 //Takes the parameter of a json object. Explained in moviesinfo.js
 //Update movie information
-router.post('/UpdateMovies',(req, res)=>{ 
+router.post('/UpdateMovies',(req, res) => { 
   moviesInfo.updateMovies(req.body, (err, rows) => {
     if (err) {
       res.json(err);
@@ -95,7 +95,7 @@ router.post('/UpdateMovies',(req, res)=>{
 })
 
 //Deletes the movie from the DB. This requires just movies/id in which you type in ID
-router.delete('/:id?',(req, res, next)=>{ 
+router.delete('/:id?',(req, res, next) => { 
 moviesInfo.deleteMovies(req.params.id,(err, rows) => {
   if (err) {
     res.json(err);

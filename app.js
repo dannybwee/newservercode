@@ -4,8 +4,8 @@ const cors = require('cors')
 const router = express.Router();
 const port = process.env.PORT || 4000;
 const bodyParser = require('body-parser')
-let movies = require('./routes/movies');  
-let actors = require('./routes/actors');  
+const movies = require('./routes/movies');  
+const actors = require('./routes/actors');  
 const app = express();
 
 //Parases the json req object to be used in later queries
