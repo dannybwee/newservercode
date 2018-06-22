@@ -6,7 +6,7 @@ Steps to starting application:
 
 Step 1: run "npm install"
 
-Step 2: inside the image folder, there is an imdb.sql file. This file is an export of the local database I used to test the application. Within the sql file should contain all data/tables.
+Step 2: inside the folder there is an imdb.sql file. This file is an export of the local database I used to test the application. Within the sql file should contain all data/tables.
 
     to import open mysql workbench.
     1. open mysql workbench and navigate to management window
