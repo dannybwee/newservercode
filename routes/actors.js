@@ -10,7 +10,7 @@ const actorsInfo = require('../controllers/actorsInfo');
  //gets actor by ID. Passes in the params of integer
  router.get('/:id?', (req, res, next) =>  {
     if(req.params.id){
-      actorsInfo.getActorsbyID(req.params.id, (err,rows) => {
+      actorsInfo.getActorsbyID(req.params.id, (err, rows) => {
         if (err) {
           res.json(err);
         } else {

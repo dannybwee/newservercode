@@ -8,6 +8,12 @@ const movies = require('./routes/movies');
 const actors = require('./routes/actors');  
 const app = express();
 
+/**
+ * 
+ * Main part of the application. Sets up routes, and port numbers.
+ * 
+ */
+
 //Parases the json req object to be used in later queries
 app.use(bodyParser.json());
 
