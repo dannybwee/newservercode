@@ -45,7 +45,7 @@ let movies = {
     } else {
       id = ('%' + id + '%')
     //else return just 1 word queries
-      query = "SELECT a.*, GROUP_CONCAT(c.name) AS `Actors` \
+     let query = "SELECT a.*, GROUP_CONCAT(c.name) AS `Actors` \
       FROM movies a \
         LEFT JOIN movie_actor b ON b.movie_id = a.imdbID \
         LEFT JOIN actors c ON b.actor_id = c.id \
@@ -58,7 +58,7 @@ let movies = {
 
   getMoviebyRating: (id, callback) => {
     // id = ('%' + id + '%')
-    query = "SELECT a.*, GROUP_CONCAT(c.name) AS `Actors` \
+   let query = "SELECT a.*, GROUP_CONCAT(c.name) AS `Actors` \
     FROM movies a \
       LEFT JOIN movie_actor b ON b.movie_id = a.imdbID \
       LEFT JOIN actors c ON b.actor_id = c.id \
@@ -70,7 +70,7 @@ let movies = {
 
   getMoviebyActors: (id, callback) => {
     id = ('%' + id + '%')
-    "SELECT a.name, m.title, m.year, m.rating, m.plot \
+    let query = "SELECT a.name, m.title, m.year, m.rating, m.plot \
       FROM finalimdb.actors a\
       JOIN movie_actor ma ON (ma.actor_id = a.id)\
       JOIN movies m ON (m.imdbID = ma.movie_id)\
@@ -115,6 +115,7 @@ let movies = {
   * }
   * (@callback = query response)
   * 
+  * This does not check for duplicates. To check for duplicates I would check most likely in the front end
   */
   addMovies: (req, callback) => {
     console.log(req)
@@ -153,7 +154,8 @@ let movies = {
 
   //Simple function to delete movies based on ID
   deleteMovies: (id, callback) => {
-    return db.query ("DELETE FROM MOVIES WHERE imdbID =?", [id], callback)
+    let query = "DELETE FROM MOVIES WHERE imdbID =?"
+    return db.query (query, [id], callback)
   }
 };
 
