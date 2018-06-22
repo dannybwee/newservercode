@@ -6,7 +6,7 @@ Steps to starting application:
 
 Step 1: run "npm install"
 
-Step 2: inside the image folder, there is an imdb.sql file. This file is an export of the local database I used to test the application. Within the sql file should contain all data/tables.
+Step 2: inside the folder there is an imdb.sql file. This file is an export of the local database I used to test the application. Within the sql file should contain all data/tables.
 
     to import open mysql workbench.
     1. open mysql workbench and navigate to management window
@@ -18,7 +18,7 @@ Step 3: in the config file of the folder, you will see a secrets.js within this 
 
 Step 4: once the database connection is configured. run the application by typing "node app.js"
 
-Step 5: open up postmat
+Step 5: open up postman
         Some sample features and post/delete/get requests:
 
     Required Features:
