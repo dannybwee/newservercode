@@ -118,7 +118,6 @@ let movies = {
   * This does not check for duplicates. To check for duplicates I would check most likely in the front end
   */
   addMovies: (req, callback) => {
-    console.log(req)
     //accepts the req object.
     let movies = req;
     let query = "INSERT INTO movies(title, year, released, runtime, director, plot, rating)\

@@ -34,7 +34,6 @@ const actorsInfo = require('../controllers/actorsInfo');
 //adds actor to the actor table
 //Takes the parameter of a json object. Explained in actorsInfo.js
 router.post('/addActor', (req, res) => { 
-    console.log(req.body)
     actorsInfo.addActor(req.body, (err, rows) => {
       if (err) {
         res.json(err);
