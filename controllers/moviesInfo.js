@@ -95,7 +95,7 @@ let movies = {
    */
   attachActor: (req, callback) => {
     let movies = req;
-    let query = "Insert into movie_actor (movie_id, actor_id) values(?, ?);";
+    let query = "INSERT INTO movie_actor (movie_id, actor_id) values(?, ?);";
     return db.query(query,[movies.imdbID, movies.id], callback)
   },
 
@@ -154,7 +154,7 @@ let movies = {
 
   //Simple function to delete movies based on ID
   deleteMovies: (id, callback) => {
-    let query = "DELETE FROM MOVIES WHERE imdbID =?"
+    let query = "DELETE FROM movies WHERE imdbID =?"
     return db.query (query, [id], callback)
   }
 };
