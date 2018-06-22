@@ -20,12 +20,12 @@ step4: once the database is configured. run the application by typing "node app.
 
 step5: open up postman to get data.
 
-Required Features:
+    Required Features:
     step5.a: get all movies
     Step5.b: get movies based on year. This function also takes in partial years. Ex(199, 20, 1, 2000)
-    Step5.c: get all movies based on rating: this function takes a number and gets the rating that is that rating or close to it.
+    Step5.c: get all movies based on rating: this function takes a number and gets the rating that is that rating or close to       it.
     step5.d: get all movies based on actor
-    step5.e: add movies: This is a post request that takes in a json object. Make sure it's post and json object or it won't work.
+    step5.e: add movies: This is a post request that takes in a json object. Make sure it's post and json object or it won't        work.
 
 Extra Features
     updatemovies: This updates the movie based on parameters. You must know the ID for the update to work. It takes in a json object similar to add movies, but requires the imdbID
