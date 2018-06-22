@@ -3,8 +3,11 @@
 IMDB movie database assignment.
 
 Steps to starting application:
+
 step 1: run "npm install"
+
 step 2: inside the image folder, there is an imdb.sql file. This file is an export of the local database I used to test the application. Within the sql file should contain all data/tables.
+
     to import open mysql workbench.
     1. open mysql workbench and navigate to management window
     2. there's a button called data import/restore, click it
